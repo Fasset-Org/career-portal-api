@@ -1,7 +1,8 @@
 const { verifyJWT } = require("../utils/Helper");
 const { ApiError, ApiResp } = require("../utils/Response");
+const { User } = require("../models");
 
-const AuthMid = (req, res, next) => {
+const AuthMid = async (req, res, next) => {
   try {
     const header = req.header("authorization");
 
@@ -17,6 +18,11 @@ const AuthMid = (req, res, next) => {
 
     if (!claims) throw new ApiError("User not authorized to access", 401);
 
+    const usr = await User.findOne({where: {id: claims.id}});
+
+    if(!usr) throw new ApiError('User not authorized to access', 401);
+    
+
     if (claims?.msg && claims.msg === "jwt expired") {
       throw new ApiError("User token expired", 401);
     }
@@ -30,7 +36,7 @@ const AuthMid = (req, res, next) => {
   } catch (e) {
     console.log(e);
 
-    next(new ApiError('User not authorized to access', 401));
+    next(new ApiError("User not authorized to access", 401));
   }
 };
 
