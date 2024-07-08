@@ -11,4 +11,5 @@ AuthRouter.get('/isUserLoggedIn', AuthMid, AuthController.isUserLoggedIn)
 AuthRouter.get('/refreshToken', AuthController.refreshToken)
 
 
+
 module.exports = AuthRouter;
