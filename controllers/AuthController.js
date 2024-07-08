@@ -266,7 +266,7 @@ const AuthController = {
       success: true,
       message: "Reset Password User"
     });
-  }
+  },
 };
 
 module.exports = AuthController;
