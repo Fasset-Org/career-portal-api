@@ -47,8 +47,6 @@ const StudentController = {
         { transaction: t }
       );
 
-      
-
       await t.commit();
 
       return res
@@ -407,7 +405,9 @@ const StudentController = {
       await user.update(
         {
           profileProgress:
-            documents.length < 3 ? parseInt(user.profileProgress) + 5 : parseInt(user.profileProgress) + 0
+            documents.length < 3
+              ? parseInt(user.profileProgress) + 5
+              : parseInt(user.profileProgress) + 0
         },
         { transaction: t }
       );
