@@ -33,16 +33,21 @@ const StudentController = {
         throw new ApiError("Error saving user basic information", 404);
 
       await user.update(
-        { ...req.body, profileProgress: parseInt(user.profileProgress) + 15 },
+        {
+          ...req.body,
+          profileProgress: !studentInfo.completed
+            ? parseInt(user.profileProgress) + 15
+            : parseInt(user.profileProgress) + 0
+        },
         { transaction: t }
       );
+
       await studentInfo.update(
         { ...req.body, completed: true },
         { transaction: t }
       );
 
-      console.log(user);
-      console.log(studentInfo);
+      
 
       await t.commit();
 
@@ -59,18 +64,15 @@ const StudentController = {
   addStudentAddress: async (req, res, next) => {
     const t = await sequelize.transaction();
     try {
-
-      console.log(req.body)
-
       const user = await User.findOne(
         { where: { id: req.user.id } },
         { transaction: t }
       );
-      
+
       const address = await Address.create(
         {
           ...req.body,
-          userId: req.user.id,
+          userId: req.user.id
         },
         { transaction: t }
       );
@@ -112,20 +114,36 @@ const StudentController = {
   },
 
   addBasicEducation: async (req, res, next) => {
+    const t = await sequelize.transaction();
     try {
-      const basicEducation = await BasicEducation.create({
-        ...req.body,
-        completed: true
-      });
+      const user = await User.findOne(
+        { where: { id: req.user.id } },
+        { transaction: t }
+      );
+      const basicEducation = await BasicEducation.create(
+        {
+          ...req.body,
+          completed: true
+        },
+        { transaction: t }
+      );
 
-      if (!basicEducation)
+      if (!basicEducation || !user)
         throw new ApiError("Error saving basic aducation info", 404);
+
+      await user.update(
+        { profileProgress: parseInt(user.profileProgress) + 15 },
+        { transaction: t }
+      );
+
+      t.commit();
 
       return res
         .status(201)
         .json(ApiResp("Basic education saved successfully"));
     } catch (e) {
       console.log(e);
+      t.rollback();
       next(e);
     }
   },
@@ -354,6 +372,7 @@ const StudentController = {
   },
 
   addDocument: async (req, res, next) => {
+    const t = await sequelize.transaction();
     try {
       const files = req.files;
       const documentFile = files.file;
@@ -366,15 +385,39 @@ const StudentController = {
 
       if (!save) throw new ApiError("Error uploading document", 400);
 
-      await Document.create({
-        ...req.body,
-        originalFileName: documentFile.name,
-        blobFileName: documentFileName
-      });
+      await Document.create(
+        {
+          ...req.body,
+          originalFileName: documentFile.name,
+          blobFileName: documentFileName
+        },
+        { transaction: t }
+      );
+
+      const documents = await Document.findAll(
+        { where: { userId: req.user.id } },
+        { transaction: t }
+      );
+
+      const user = await User.findOne(
+        { where: { id: req.user.id } },
+        { transaction: t }
+      );
+
+      await user.update(
+        {
+          profileProgress:
+            documents.length < 3 ? parseInt(user.profileProgress) + 5 : parseInt(user.profileProgress) + 0
+        },
+        { transaction: t }
+      );
+
+      t.commit();
 
       return res.status(201).json(ApiResp("Document added successfully"));
     } catch (e) {
       console.log(e);
+      t.rollback();
       next(e);
     }
   }
