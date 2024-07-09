@@ -114,7 +114,7 @@ const AuthController = {
         await bcryptjs.genSalt(10)
       );
       const usr = await User.create(
-        { ...req.body, password: password },
+        { ...req.body, password: password, profileProgress: 20 },
         { transaction: t }
       );
       await StudentInformation.create(
