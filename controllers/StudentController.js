@@ -32,7 +32,10 @@ const StudentController = {
       if (!user || !studentInfo)
         throw new ApiError("Error saving user basic information", 404);
 
-      await user.update({ ...req.body }, { transaction: t });
+      await user.update(
+        { ...req.body, profileProgress: parseInt(user.profileProgress) + 15 },
+        { transaction: t }
+      );
       await studentInfo.update(
         { ...req.body, completed: true },
         { transaction: t }
@@ -54,18 +57,37 @@ const StudentController = {
   },
 
   addStudentAddress: async (req, res, next) => {
+    const t = await sequelize.transaction();
     try {
-      const address = await Address.create({
-        ...req.body,
-        userId: req.user.id,
-        completed: true
-      });
+
+      console.log(req.body)
+
+      const user = await User.findOne(
+        { where: { id: req.user.id } },
+        { transaction: t }
+      );
+      
+      const address = await Address.create(
+        {
+          ...req.body,
+          userId: req.user.id,
+        },
+        { transaction: t }
+      );
 
       if (!address) throw new ApiError("Error saving address", 404);
+
+      await user.update(
+        { profileProgress: parseInt(user.profileProgress) + 20 },
+        { transaction: t }
+      );
+
+      t.commit();
 
       return res.status(201).json(ApiResp("Address saved successfully"));
     } catch (e) {
       console.log(e);
+      t.rollback();
       next(e);
     }
   },
