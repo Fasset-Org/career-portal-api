@@ -33,7 +33,10 @@ const StudentController = {
         throw new ApiError("Error saving user basic information", 404);
 
       await user.update({ ...req.body }, { transaction: t });
-      await studentInfo.update({ ...req.body }, { transaction: t });
+      await studentInfo.update(
+        { ...req.body, completed: true },
+        { transaction: t }
+      );
 
       console.log(user);
       console.log(studentInfo);
@@ -54,7 +57,8 @@ const StudentController = {
     try {
       const address = await Address.create({
         ...req.body,
-        userId: req.user.id
+        userId: req.user.id,
+        completed: true
       });
 
       if (!address) throw new ApiError("Error saving address", 404);
