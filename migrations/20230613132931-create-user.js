@@ -30,6 +30,9 @@ module.exports = {
         type: DataTypes.TEXT,
         allowNull: false
       },
+      profileProgress: {
+        type: DataTypes.TEXT
+      },
       dateCreated: {
         allowNull: false,
         type: DataTypes.DATE,
