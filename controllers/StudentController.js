@@ -87,7 +87,10 @@ const StudentController = {
 
   addBasicEducation: async (req, res, next) => {
     try {
-      const basicEducation = await BasicEducation.create(req.body);
+      const basicEducation = await BasicEducation.create({
+        ...req.body,
+        completed: true
+      });
 
       if (!basicEducation)
         throw new ApiError("Error saving basic aducation info", 404);
