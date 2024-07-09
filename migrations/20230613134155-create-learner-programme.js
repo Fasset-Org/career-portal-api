@@ -6,27 +6,30 @@ module.exports = {
       id: {
         allowNull: false,
         primaryKey: true,
-        type: DataTypes.UUID,
+        type: DataTypes.UUID
       },
       userId: {
         type: DataTypes.UUID,
-        allowNull: false,
+        allowNull: false
       },
       programmeId: {
-        type: DataTypes.UUID,
-        allowNull: false,
+        type: DataTypes.UUID
+        // allowNull: false,
+      },
+      completed: {
+        type: DataTypes.BOOLEAN
       },
       dateCreated: {
         allowNull: false,
-        type: DataTypes.DATE,
+        type: DataTypes.DATE
       },
       dateUpdated: {
         allowNull: false,
-        type: DataTypes.DATE,
-      },
+        type: DataTypes.DATE
+      }
     });
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable("learnerProgrammes");
-  },
+  }
 };
