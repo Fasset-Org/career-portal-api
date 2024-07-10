@@ -40,7 +40,7 @@ const AuthController = {
 
       const isValid = await bcryptjs.compare(password, user.password);
 
-      if (!isValid) throw new ApiError("user credentials invalid", 404);
+      if (!isValid) throw new ApiError("User credentials invalid", 404);
 
       const payload = {
         id: user.id,
