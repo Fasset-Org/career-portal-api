@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate({ User }) {
       // define association here
       this.belongsTo(User, {
-        foreignKey: "userId",
+        foreignKey: "userId"
       });
     }
   }
@@ -20,44 +20,50 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         primaryKey: true,
         type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
+        defaultValue: DataTypes.UUIDV4
+      },
+      rsaId: {
+        type: DataTypes.TEXT,
       },
       identificationNumber: {
         type: DataTypes.TEXT,
-        allowNull: false,
+        unique: true
+      },
+      passportNumber: {
+        type: DataTypes.TEXT,
         unique: true
       },
       disbility: {
-        type: DataTypes.TEXT,
+        type: DataTypes.TEXT
         // allowNull: false,
       },
       careerStatus: {
-        type: DataTypes.TEXT,
+        type: DataTypes.TEXT
         // allowNull: false,
       },
       mobileNumber: {
-        type: DataTypes.TEXT,
+        type: DataTypes.TEXT
         // allowNull: false,
       },
       race: {
-        type: DataTypes.TEXT,
+        type: DataTypes.TEXT
         // allowNull: false,
       },
       userId: {
         type: DataTypes.UUID,
-        allowNull: false,
+        allowNull: false
       },
-      completed:{
-        type: DataTypes.BOOLEAN,
+      completed: {
+        type: DataTypes.BOOLEAN
       },
       dateCreated: {
         allowNull: false,
-        type: DataTypes.DATE,
+        type: DataTypes.DATE
       },
       dateUpdated: {
         allowNull: false,
-        type: DataTypes.DATE,
-      },
+        type: DataTypes.DATE
+      }
     },
     {
       sequelize,
@@ -65,7 +71,7 @@ module.exports = (sequelize, DataTypes) => {
       tableName: "studentInformations",
       timestamps: true,
       createdAt: "dateCreated",
-      updatedAt: "dateUpdated",
+      updatedAt: "dateUpdated"
     }
   );
   return StudentInformation;
