@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate({ LearnerProgramme }) {
       // define association here
       this.hasMany(LearnerProgramme, {
-        foreignKey: "programmeId",
+        foreignKey: "programmeId"
       });
     }
   }
@@ -20,24 +20,28 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         primaryKey: true,
         type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
+        defaultValue: DataTypes.UUIDV4
       },
       title: {
         type: DataTypes.TEXT,
-        allowNull: false,
+        allowNull: false
       },
       description: {
         type: DataTypes.TEXT,
-        allowNull: false,
+        allowNull: false
+      },
+      duration: {
+        type: DataTypes.TEXT,
+        allowNull: false
       },
       dateCreated: {
         allowNull: false,
-        type: DataTypes.DATE,
+        type: DataTypes.DATE
       },
       dateUpdated: {
         allowNull: false,
-        type: DataTypes.DATE,
-      },
+        type: DataTypes.DATE
+      }
     },
     {
       sequelize,
@@ -45,7 +49,7 @@ module.exports = (sequelize, DataTypes) => {
       tableName: "programmes",
       timestamps: true,
       createdAt: "dateCreated",
-      updatedAt: "dateUpdated",
+      updatedAt: "dateUpdated"
     }
   );
   return Programme;
