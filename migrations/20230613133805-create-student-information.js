@@ -8,9 +8,15 @@ module.exports = {
         primaryKey: true,
         type: DataTypes.UUID,
       },
+      rsaId: {
+        type: DataTypes.TEXT,
+      },
       identificationNumber: {
         type: DataTypes.TEXT,
-        allowNull: false,
+        unique: true
+      },
+      passportNumber: {
+        type: DataTypes.TEXT,
         unique: true
       },
       disbility: {
