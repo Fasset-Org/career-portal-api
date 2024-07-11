@@ -68,10 +68,7 @@ const StudentController = {
       );
 
       const address = await Address.create(
-        {
-          ...req.body,
-          userId: req.user.id
-        },
+        { ...req.body, userId: req.user.id },
         { transaction: t }
       );
 
