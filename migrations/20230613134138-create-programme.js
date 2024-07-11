@@ -16,6 +16,10 @@ module.exports = {
         type: DataTypes.TEXT,
         allowNull: false
       },
+      duration: {
+        type: DataTypes.TEXT,
+        allowNull: false
+      },
       dateCreated: {
         allowNull: false,
         type: DataTypes.DATE
