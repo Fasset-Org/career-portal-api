@@ -18,10 +18,9 @@ const AuthMid = async (req, res, next) => {
 
     if (!claims) throw new ApiError("User not authorized to access", 401);
 
-    const usr = await User.findOne({where: {id: claims.id}});
+    const usr = await User.findOne({ where: { id: claims.id } });
 
-    if(!usr) throw new ApiError('User not authorized to access', 401);
-    
+    if (!usr) throw new ApiError("User not authorized to access", 401);
 
     if (claims?.msg && claims.msg === "jwt expired") {
       throw new ApiError("User token expired", 401);
@@ -39,5 +38,7 @@ const AuthMid = async (req, res, next) => {
     next(new ApiError("User not authorized to access", 401));
   }
 };
+
+
 
 module.exports = AuthMid;
