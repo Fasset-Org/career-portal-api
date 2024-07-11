@@ -1,3 +1,4 @@
+const { Op } = require("sequelize");
 const {
   sequelize,
   User,
@@ -77,12 +78,7 @@ const AuthController = {
     const t = await sequelize.transaction();
 
     try {
-      if (req.body?.email === "") throw new ApiError("Email is required", 422);
-
-      if (req.body?.identificationNumber === "") {
-        throw new ApiError("Identification number required", 422);
-      }
-
+      
       // check if email exist
       const user = await User.findOne({
         where: {
@@ -94,16 +90,19 @@ const AuthController = {
         throw new ApiError("User email already taken", 409);
       }
 
-      // check if Id number already registered
+      // check if id/passport number already registeredF
       const id = await StudentInformation.findOne({
         where: {
-          identificationNumber: req.body.identificationNumber
+          [Op.or]: [
+            { identificationNumber: req.body?.identificationNumber },
+            { passportNumber: req.body?.passportNumber }
+          ]
         }
       });
 
       if (id) {
         throw new ApiError(
-          "User id number already registered, please try reset password",
+          "User id/passport number already registered, please try reset password",
           409
         );
       }
@@ -118,7 +117,7 @@ const AuthController = {
         { transaction: t }
       );
       await StudentInformation.create(
-        { identificationNumber: req.body.identificationNumber, userId: usr.id },
+        { ...req.body, userId: usr.id },
         { transaction: t }
       );
 
@@ -266,7 +265,7 @@ const AuthController = {
       success: true,
       message: "Reset Password User"
     });
-  },
+  }
 };
 
 module.exports = AuthController;
