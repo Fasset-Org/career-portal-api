@@ -140,7 +140,7 @@ const AuthController = {
 
       let usr = null;
 
-      if (user.userType === "super") {
+      if (user.userType === "admin") {
         usr = await User.findOne({
           where: {
             id: user.id
