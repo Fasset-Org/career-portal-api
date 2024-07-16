@@ -6,21 +6,19 @@ module.exports = {
       id: {
         allowNull: false,
         primaryKey: true,
-        type: DataTypes.UUID,
+        type: DataTypes.UUID
       },
       rsaId: {
-        type: DataTypes.TEXT,
+        type: DataTypes.TEXT
       },
       identificationNumber: {
-        type: DataTypes.TEXT,
-        unique: true
+        type: DataTypes.TEXT
       },
       passportNumber: {
-        type: DataTypes.TEXT,
-        unique: true
+        type: DataTypes.TEXT
       },
       disbility: {
-        type: DataTypes.TEXT,
+        type: DataTypes.TEXT
         // allowNull: false,
       },
       careerStatus: {
@@ -28,31 +26,31 @@ module.exports = {
         // allowNull: false,
       },
       mobileNumber: {
-        type: DataTypes.TEXT,
+        type: DataTypes.TEXT
         // allowNull: false,
       },
       race: {
-        type: DataTypes.TEXT,
+        type: DataTypes.TEXT
         // allowNull: false,
       },
       userId: {
         type: DataTypes.UUID,
-        allowNull: false,
+        allowNull: false
       },
-      completed:{
-        type: DataTypes.BOOLEAN,
+      completed: {
+        type: DataTypes.BOOLEAN
       },
       dateCreated: {
         allowNull: false,
-        type: DataTypes.DATE,
+        type: DataTypes.DATE
       },
       dateUpdated: {
         allowNull: false,
-        type: DataTypes.DATE,
-      },
+        type: DataTypes.DATE
+      }
     });
   },
   async down(queryInterface, DataTypes) {
     await queryInterface.dropTable("studentInformations");
-  },
+  }
 };
