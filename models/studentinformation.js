@@ -23,15 +23,15 @@ module.exports = (sequelize, DataTypes) => {
         defaultValue: DataTypes.UUIDV4
       },
       rsaId: {
-        type: DataTypes.TEXT,
+        type: DataTypes.TEXT
       },
       identificationNumber: {
         type: DataTypes.TEXT,
-        unique: true
+        defaultValue: null
       },
       passportNumber: {
         type: DataTypes.TEXT,
-        unique: true
+        defaultValue: null
       },
       disbility: {
         type: DataTypes.TEXT
