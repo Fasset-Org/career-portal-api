@@ -78,7 +78,6 @@ const AuthController = {
     const t = await sequelize.transaction();
 
     try {
-      
       // check if email exist
       const user = await User.findOne({
         where: {
@@ -92,12 +91,10 @@ const AuthController = {
 
       // check if id/passport number already registeredF
       const id = await StudentInformation.findOne({
-        where: {
-          [Op.or]: [
-            { identificationNumber: req.body?.identificationNumber },
-            { passportNumber: req.body?.passportNumber }
-          ]
-        }
+        where: [
+          { identificationNumber: req.body?.identificationNumber },
+          { passportNumber: req.body?.passportNumber }
+        ]
       });
 
       if (id) {
