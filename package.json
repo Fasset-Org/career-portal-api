@@ -24,7 +24,7 @@
   "description": "FMS API",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "pm2 start app.js -f --name CP-API",
     "dev": "nodemon app.js",
     "migrate": "npx sequelize-cli db:migrate:undo:all && npx sequelize-cli db:migrate",
     "seed": "npx sequelize-cli db:seed:all"
