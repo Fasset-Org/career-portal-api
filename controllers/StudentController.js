@@ -8,7 +8,8 @@ const {
   TertiaryEducation,
   ProfessionalSkill,
   CertificateAndTraning,
-  Document
+  Document,
+  Programme
 } = require("../models");
 const { ApiError, ApiResp } = require("../utils/Response");
 const { v4: uuid } = require("uuid");
@@ -417,6 +418,37 @@ const StudentController = {
       t.rollback();
       next(e);
     }
+  },
+
+  getAllProgrammes: async (req, res, next) => {
+    try {
+      const programmes = await Programme.findAll();
+
+      return res
+        .status(200)
+        .json(
+          ApiResp("Programmes fetched successfully", "programmes", programmes)
+        );
+    } catch (e) {
+      console.log(e);
+      next(e);
+    }
+  },
+
+  saveLearnerProgrammes: async (req, res, next) => {
+
+    try{
+
+      
+
+
+    }catch(e){
+
+      console.log(e);
+      next(e)
+
+    }
+
   }
 
   // getAllCertification: async (req, res, next) => {
