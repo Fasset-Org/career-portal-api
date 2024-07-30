@@ -49,9 +49,6 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.UUID,
         allowNull: false,
       },
-      completed:{
-        type: DataTypes.BOOLEAN,
-      },
       dateCreated: {
         allowNull: false,
         type: DataTypes.DATE,
