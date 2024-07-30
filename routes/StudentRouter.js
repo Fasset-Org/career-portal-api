@@ -21,5 +21,6 @@ StudentRouter.delete('/deleteCertificate/:certificateId', AuthMid, StudentContro
 StudentRouter.get('/downloadCertificate', StudentController.downloadCertificate);
 StudentRouter.post('/addDocument', AuthMid, StudentController.addDocument);
 StudentRouter.get('/getAllProgrammes', AuthMid, StudentController.getAllProgrammes);
+StudentRouter.post('/saveLearnerProgrammes', AuthMid, StudentController.saveLearnerProgrammes);
 
 module.exports = StudentRouter;
