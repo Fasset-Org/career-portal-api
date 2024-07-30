@@ -9,7 +9,8 @@ const {
   ProfessionalSkill,
   CertificateAndTraning,
   Document,
-  Programme
+  Programme,
+  LearnerProgramme
 } = require("../models");
 const { ApiError, ApiResp } = require("../utils/Response");
 const { v4: uuid } = require("uuid");
@@ -436,20 +437,58 @@ const StudentController = {
   },
 
   saveLearnerProgrammes: async (req, res, next) => {
+    const t = await sequelize.transaction();
 
-    try{
+    try {
+      const { programmes, userId } = req.body;
 
-      
+      const user = await User.findOne(
+        { where: { id: userId } },
+        { transaction: t }
+      );
 
+      await LearnerProgramme.destroy(
+        { where: { userId: userId } },
+        { transaction: t }
+      );
 
-    }catch(e){
+      for (const programme of programmes) {
+        await LearnerProgramme.create(
+          {
+            programmeId: programme.id,
+            userId: userId
+          },
+          { transaction: t }
+        );
+      }
 
+      if (!req.body.completed) {
+        await user.update(
+          { profileProgress: parseInt(user.profileProgress) + 15 },
+          { transaction: t }
+        );
+      }
+
+      t.commit();
+
+      return res.status(201).json(ApiResp("Interest saved successfully"));
+    } catch (e) {
       console.log(e);
-      next(e)
-
+      t.rollback();
+      next(e);
     }
-
   }
+
+  // getAllLearnerProgrammes: async (req, res, next) => {
+
+  //   try{
+
+  //   }catch(e){
+  //     console.log(e);
+  //     next(e);
+  //   }
+
+  // }
 
   // getAllCertification: async (req, res, next) => {
   //   try {
