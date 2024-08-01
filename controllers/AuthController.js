@@ -257,6 +257,22 @@ const AuthController = {
     }
   },
 
+  sendResetPasswordEmail: async (req, res, next) => {
+    try {
+      const { email } = req.body;
+
+      const user = await User.findOne({ where: { email: email } });
+
+      if(!user) throw new ApiError('User email does not exist, please register');
+
+      
+
+    } catch (e) {
+      console.log(e);
+      next(e);
+    }
+  },
+
   resetPasswordUser: (req, res, next) => {
     res.status(200).json({
       success: true,
