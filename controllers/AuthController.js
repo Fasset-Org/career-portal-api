@@ -21,6 +21,7 @@ const {
 } = require("../utils/Helper");
 const { ApiError, ApiResp } = require("../utils/Response");
 const bcryptjs = require("bcryptjs");
+const sendEmail = require("../utils/sendEmail");
 
 /**
  * @Athor Themba Makamu
@@ -261,12 +262,37 @@ const AuthController = {
     try {
       const { email } = req.body;
 
-      const user = await User.findOne({ where: { email: email } });
+      const user = await User.findOne({
+        where: { email: email },
+        exclude: "password"
+      });
 
-      if(!user) throw new ApiError('User email does not exist, please register');
+      if (!user)
+        throw new ApiError("User email does not exist, please register");
 
-      
+      const resetPasswordToken = generateJWT(
+        { email: req.body.email },
+        process.env.JWT_RESET_KEY,
+        `1d`
+      );
 
+      const html = `
+        <div style="width: 100%; margin: auto;">
+          <div style="width: 70%; margin: auto; bakground-color: #FFFFFF; border: 1px lightgray solid; diplay: flex; justtify-content: center; align-items: center">
+            <p>Dear ${user.firstName}  ${user.lastName}</p>
+            <p>You have submitted a password change request, please click the button below to reset your password</p>
+            <a href="${process.env.APP_URL}/resetPassword/${resetPasswordToken}" style="background-color: #163683 color: white; padding: 14px 25px; text-align: center; text-decoration: none;">RESET PASSWORD</a>
+            <br />
+            <br />
+          </div>
+        </div>
+      `;
+
+      sendEmail({
+        email: user.email,
+        subject: "Password Reset | Learner Portal",
+        html: html
+      });
     } catch (e) {
       console.log(e);
       next(e);
