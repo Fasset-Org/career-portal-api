@@ -278,7 +278,7 @@ const AuthController = {
 
       const html = `
         <div style="width: 100%; margin: auto;">
-          <div style="width: 70%; margin: auto; bakground-color: #FFFFFF; border: 1px lightgray solid; diplay: flex; justtify-content: center; align-items: center">
+          <div>
             <p>Dear ${user.firstName}  ${user.lastName}</p>
             <p>You have submitted a password change request, please click the button below to reset your password</p>
             <a href="${process.env.APP_URL}/resetPassword/${resetPasswordToken}" style="background-color: #163683 color: white; padding: 14px 25px; text-align: center; text-decoration: none;">RESET PASSWORD</a>
@@ -293,17 +293,51 @@ const AuthController = {
         subject: "Password Reset | Learner Portal",
         html: html
       });
+
+      return res
+        .status(200)
+        .json(ApiResp("Please check your email for reset password link"));
     } catch (e) {
       console.log(e);
       next(e);
     }
   },
 
-  resetPasswordUser: (req, res, next) => {
-    res.status(200).json({
-      success: true,
-      message: "Reset Password User"
-    });
+  verifyResetPasswordToken: async (req, res, next) => {
+    try {
+      const { token } = req.params;
+
+      const claims = verifyJWT(token, process.env.JWT_RESET_KEY);
+
+      return res
+        .status(200)
+        .json(ApiResp("Reset link verified successfully", "user", claims));
+    } catch (e) {
+      console.log(e);
+      next(new ApiError("Reset link invalid or expired", 400));
+    }
+  },
+
+  resetPasswordUser: async (req, res, next) => {
+    try {
+      const { password, email } = req.body;
+
+      const user = await User.findOne({ where: { email: email } });
+
+      if (!user) throw new ApiError("User email does not exist", 404);
+
+      await user.update({
+        password: await bcryptjs.hash(password, await bcryptjs.genSalt(10))
+      });
+
+      res.status(200).json({
+        success: true,
+        message: "Your password was reset successfully, you can now login"
+      });
+    } catch (e) {
+      console.log(e);
+      next(e);
+    }
   }
 };
 
