@@ -10,6 +10,8 @@ AuthRouter.post('/resetPassword', AuthController.resetPasswordUser)
 AuthRouter.get('/isUserLoggedIn', AuthMid, AuthController.isUserLoggedIn)
 AuthRouter.get('/refreshToken', AuthController.refreshToken)
 AuthRouter.post('/forgotPassword', AuthController.sendResetPasswordEmail)
+AuthRouter.get('/verifyResetToken/:token', AuthController.verifyResetPasswordToken)
+AuthRouter.post('/resetPassword', AuthController.resetPasswordUser);
 
 
 
