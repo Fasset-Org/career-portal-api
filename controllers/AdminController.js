@@ -53,7 +53,16 @@ const AdminController = {
           },
           {
             model: BasicEducation,
-            as: "basicEducation"
+            as: "basicEducation",
+            attributes: {
+              exclude: [
+                "id",
+                "dateCreated",
+                "dateUpdated",
+                "userId",
+                "completed"
+              ]
+            }
           },
           {
             model: TertiaryEducation,
