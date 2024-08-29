@@ -60,7 +60,10 @@ const AdminController = {
                 "dateCreated",
                 "dateUpdated",
                 "userId",
-                "completed"
+                "completed",
+                "school",
+                "city",
+                "province"
               ]
             }
           },
