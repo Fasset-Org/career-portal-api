@@ -79,7 +79,11 @@ const AdminController = {
                 "completed",
                 "school",
                 "city",
-                "province"
+                "province",
+                "startYear",
+                "endYear",
+                "status",
+                "institution"
               ]
             }
           },
