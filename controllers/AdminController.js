@@ -69,7 +69,19 @@ const AdminController = {
           },
           {
             model: TertiaryEducation,
-            as: "tertiaryEducation"
+            as: "tertiaryEducation",
+            attributes: {
+              exclude: [
+                "id",
+                "dateCreated",
+                "dateUpdated",
+                "userId",
+                "completed",
+                "school",
+                "city",
+                "province"
+              ]
+            }
           },
           {
             model: ProfessionalSkill,
