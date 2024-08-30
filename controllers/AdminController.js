@@ -97,7 +97,17 @@ const AdminController = {
             include: [
               {
                 model: Programme,
-                as: "programmes"
+                as: "programmes",
+                attributes: {
+                  exclude: [
+                    "id",
+                    "dateCreated",
+                    "dateUpdated",
+                    "duration",
+                    "description",
+      
+                  ]
+                }
               }
             ]
           },
