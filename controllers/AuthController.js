@@ -37,6 +37,8 @@ const AuthController = {
 
       const user = await User.findOne({ where: { email: email } });
 
+      console.log(user.status)
+
       if (!user)
         throw new ApiError("User email don't exist, please register", 404);
 
