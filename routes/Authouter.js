@@ -12,6 +12,7 @@ AuthRouter.get('/refreshToken', AuthController.refreshToken)
 AuthRouter.post('/forgotPassword', AuthController.sendResetPasswordEmail)
 AuthRouter.get('/verifyResetToken/:token', AuthController.verifyResetPasswordToken)
 AuthRouter.post('/resetPassword', AuthController.resetPasswordUser);
+AuthRouter.delete(`/deleteUser/:userId`, AuthMid, AuthController.deleteAccount);
 
 
 
