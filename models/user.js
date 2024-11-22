@@ -16,52 +16,52 @@ module.exports = (sequelize, DataTypes) => {
       Document,
       EmployerFilter,
       LearnerProgramme,
-      StudentInformation,
+      StudentInformation
     }) {
       // define association here
 
       this.hasOne(StudentInformation, {
         foreignKey: "userId",
-        as: "studentInformation",
+        as: "studentInformation"
       });
 
       this.hasOne(Address, {
         foreignKey: "userId",
-        as: "studentAddress",
+        as: "studentAddress"
       });
 
       this.hasOne(BasicEducation, {
         foreignKey: "userId",
-        as: "basicEducation",
+        as: "basicEducation"
       });
 
       this.hasMany(TertiaryEducation, {
         foreignKey: "userId",
-        as: "tertiaryEducation",
+        as: "tertiaryEducation"
       });
 
       this.hasMany(ProfessionalSkill, {
         foreignKey: "userId",
-        as: "skills",
+        as: "skills"
       });
 
       this.hasMany(CertificateAndTraning, {
         foreignKey: "userId",
-        as: "certificates",
+        as: "certificates"
       });
       this.hasMany(Document, {
         foreignKey: "userId",
-        as: "attachments",
+        as: "attachments"
       });
 
       this.hasMany(LearnerProgramme, {
         foreignKey: "userId",
-        as: "studentProgrammes",
+        as: "studentProgrammes"
       });
 
       this.hasMany(EmployerFilter, {
         foreignKey: "userId",
-        as: "filters",
+        as: "filters"
       });
     }
   }
@@ -71,7 +71,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         primaryKey: true,
         type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
+        defaultValue: DataTypes.UUIDV4
       },
       firstName: {
         type: DataTypes.TEXT,
@@ -82,7 +82,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false
       },
       middleName: {
-        type: DataTypes.TEXT,
+        type: DataTypes.TEXT
       },
       email: {
         type: DataTypes.TEXT,
@@ -91,23 +91,26 @@ module.exports = (sequelize, DataTypes) => {
       },
       password: {
         type: DataTypes.TEXT,
-        allowNull: false,
+        allowNull: false
       },
       userType: {
         type: DataTypes.TEXT,
-        allowNull: false,
+        allowNull: false
       },
       profileProgress: {
         type: DataTypes.TEXT
       },
+      status: {
+        type: DataTypes.TEXT
+      },
       dateCreated: {
         allowNull: false,
-        type: DataTypes.DATE,
+        type: DataTypes.DATE
       },
       dateUpdated: {
         allowNull: false,
-        type: DataTypes.DATE,
-      },
+        type: DataTypes.DATE
+      }
     },
     {
       sequelize,
@@ -115,7 +118,7 @@ module.exports = (sequelize, DataTypes) => {
       tableName: "users",
       timestamps: true,
       createdAt: "dateCreated",
-      updatedAt: "dateUpdated",
+      updatedAt: "dateUpdated"
     }
   );
   return User;
