@@ -37,7 +37,7 @@ const AuthController = {
 
       const user = await User.findOne({ where: { email: email } });
 
-      console.log(user.status)
+      console.log(user.status);
 
       if (!user)
         throw new ApiError("User email don't exist, please register", 404);
@@ -357,13 +357,15 @@ const AuthController = {
     try {
       const { userId } = req.params;
 
-      const user = User.findOne({ where: { id: userId } });
+      const user = await User.findOne({ where: { id: userId } });
 
       if (!user) throw new ApiError("Error deleting account", 404);
 
       await user.update({
         status: "inactive"
       });
+
+      return res.status(200).json(ApiResp("User deteled successfully"));
     } catch (e) {
       console.log(e);
       next(e);
