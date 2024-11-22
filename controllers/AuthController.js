@@ -40,7 +40,7 @@ const AuthController = {
       if (!user)
         throw new ApiError("User email don't exist, please register", 404);
 
-      if (user.status !== "active")
+      if (user.status === "inactive")
         throw new ApiError(
           "Please note that your account was deleted to revive your account send email to devsupport@fasset.org.za",
           404
