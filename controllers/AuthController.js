@@ -35,7 +35,7 @@ const AuthController = {
     try {
       const { email, password } = req.body;
 
-      const user = await User.findOne({ where: { email: email }, raw: true });
+      const user = await User.findOne({ where: { email: email } });
 
       if (!user)
         throw new ApiError("User email don't exist, please register", 404);
