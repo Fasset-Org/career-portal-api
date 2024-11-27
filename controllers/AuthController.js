@@ -37,16 +37,8 @@ const AuthController = {
 
       const user = await User.findOne({ where: { email: email } });
 
-      console.log(user.status);
-
       if (!user)
         throw new ApiError("User email don't exist, please register", 404);
-
-      if (user.status === "inactive")
-        throw new ApiError(
-          "Please note that your account was deleted to revive your account send email to devsupport@fasset.org.za",
-          404
-        );
 
       const isValid = await bcryptjs.compare(password, user.password);
 
@@ -357,13 +349,23 @@ const AuthController = {
     try {
       const { userId } = req.params;
 
+      console.log(req.body);
+      const { password } = req.body;
+
       const user = await User.findOne({ where: { id: userId } });
 
-      if (!user) throw new ApiError("Error deleting account", 404);
+      if (!user) throw new ApiError("Your account does not exist", 404);
 
-      await user.update({
-        status: "inactive"
-      });
+      const isValid = await bcryptjs.compare(password, user.password);
+
+      if (!isValid)
+        throw new ApiError(
+          "Please provide correct password to delete your account",
+          404
+        );
+
+      await User.destroy({ where: { id: userId } });
+      await StudentInformation.destroy({ where: { userId: userId } });
 
       return res.status(200).json(ApiResp("User deteled successfully"));
     } catch (e) {
