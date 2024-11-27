@@ -22,7 +22,9 @@ module.exports = (sequelize, DataTypes) => {
 
       this.hasOne(StudentInformation, {
         foreignKey: "userId",
-        as: "studentInformation"
+        as: "studentInformation",
+        hooks: true,
+        onDelete: "CASCADE"
       });
 
       this.hasOne(Address, {
