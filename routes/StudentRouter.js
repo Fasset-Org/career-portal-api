@@ -20,7 +20,10 @@ StudentRouter.put('/editCertificate', AuthMid, StudentController.editCertificati
 StudentRouter.delete('/deleteCertificate/:certificateId', AuthMid, StudentController.deleteCertification);
 StudentRouter.get('/downloadCertificate', StudentController.downloadCertificate);
 StudentRouter.post('/addDocument', AuthMid, StudentController.addDocument);
+StudentRouter.delete('/deleteDocument/:id', AuthMid, StudentController.deleteDocument);
+StudentRouter.get('/downloadDocument', StudentController.downloadDocument);
 StudentRouter.get('/getAllProgrammes', AuthMid, StudentController.getAllProgrammes);
 StudentRouter.post('/saveLearnerProgrammes', AuthMid, StudentController.saveLearnerProgrammes);
+
 
 module.exports = StudentRouter;
