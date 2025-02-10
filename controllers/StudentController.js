@@ -14,6 +14,7 @@ const {
 } = require("../models");
 const { ApiError, ApiResp } = require("../utils/Response");
 const { v4: uuid } = require("uuid");
+const path = require("path");
 
 const StudentController = {
   editStudentBasicInformation: async (req, res, next) => {
@@ -316,7 +317,7 @@ const StudentController = {
 
       if (files) {
         certificateFile = files.certificateFile;
-        const fileExt = certificateFile.name.split(".")[1];
+        const fileExt = path.extname(certificateFile.name);
         certificateNewFile = `${uuid()}.${fileExt}`;
         originalFileName = certificateNewFile.name;
         certificateFile.mv(
@@ -373,7 +374,7 @@ const StudentController = {
     try {
       const files = req.files;
       const documentFile = files.file;
-      const fileExt = documentFile.name.split(".")[1];
+      const fileExt = path.extname(documentFile.name);
       const documentFileName = `${uuid()}.${fileExt}`;
 
       const save = documentFile.mv(
