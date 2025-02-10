@@ -15,6 +15,7 @@ const {
 const { ApiError, ApiResp } = require("../utils/Response");
 const { v4: uuid } = require("uuid");
 const path = require("path");
+const fs = require("fs");
 
 const StudentController = {
   editStudentBasicInformation: async (req, res, next) => {
@@ -419,6 +420,40 @@ const StudentController = {
       console.log(e);
       t.rollback();
       next(e);
+    }
+  },
+
+  deleteDocument: async (req, res, next) => {
+    try {
+      const { id } = req.params;
+
+      console.log(id);
+
+      await Document.destroy({ where: { id: id } });
+
+      return res.status(200).json(ApiResp("Document deleted successfully"));
+    } catch (e) {
+      console.log(e);
+      next(e);
+    }
+  },
+
+  downloadDocument: async (req, res, next) => {
+    try {
+      const { filename } = req.query;
+      const filePath = `${process.env.STUDENT_CERTIFICATE_FOLDER}/${filename}`;
+
+      if (!fs.existsSync(filePath)) {
+        throw new ApiError(
+          "Your file might be corrupted, Please delete & upload a new file",
+          500
+        );
+      }
+
+      return res.download(filePath);
+    } catch (err) {
+      console.log(err);
+      next(err);
     }
   },
 
