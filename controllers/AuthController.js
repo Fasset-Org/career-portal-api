@@ -282,16 +282,40 @@ const AuthController = {
       );
 
       const html = `
-        <div style="width: 100%; margin: auto;">
-          <div>
-            <p>Dear ${user.firstName}  ${user.lastName}</p>
-            <p>You have submitted a password change request, please click the button below to reset your password</p>
-            <a href="${process.env.APP_URL}/resetPassword/${resetPasswordToken}" style="background-color: #163683 color: white; padding: 14px 25px; text-align: center; text-decoration: none;">RESET PASSWORD</a>
-            <br />
-            <br />
-          </div>
-        </div>
-      `;
+  <div style="width: 100%; max-width: 600px; margin: auto; border: 1px solid lightgray; border-radius: 0px; padding: 20px; font-family: Arial, sans-serif;">
+    <div style="text-align: center;">
+      <h2 style="color: #163683;">Password Reset Request</h2>
+      <img src="${process.env.API_URL}/uploads/blueLogo-transparentBg.png" alt="Logo" />
+    </div>
+    <p style="font-size: 16px; color: #333;">Dear ${user.firstName} ${
+        user.lastName
+      },</p>
+    <p style="font-size: 16px; color: #333;">
+      You have submitted a password change request. Please click the button below to reset your password.
+    </p>
+    <div style="text-align: start; margin: 20px 0;">
+      <a href="${process.env.APP_URL}/resetPassword/${resetPasswordToken}" 
+        style="background-color: #163683; color: white; padding: 12px 24px; font-size: 16px; font-weight: bold; text-align: center; text-decoration: none; display: inline-block; border-radius: 0px;">
+        RESET PASSWORD
+      </a>
+    </div>
+    <div>
+      <p>If you don’t use this link within 7 hours, it will expire. To get a new password reset link, visit: ${
+        process.env.APP_URL
+      }/forgotPassword
+      </p>
+      <p>Thanks,<br />
+      The GitHub Team</p>
+    </div>
+    <p style="font-size: 14px; color: #777;">
+      If you did not request this, please ignore this email.
+    </p>
+    <hr style="border: none; border-top: 1px solid lightgray; margin: 20px 0;" />
+    <p style="font-size: 12px; color: #999; text-align: center;">
+      © ${new Date().getFullYear()} FASSET. All rights reserved.
+    </p>
+  </div>
+`;
 
       sendEmail({
         email: user.email,
