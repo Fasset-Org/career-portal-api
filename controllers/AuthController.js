@@ -308,7 +308,7 @@ const AuthController = {
 
     <div style="margin-bottom: 20px;">
       <p style="font-size: 14px; color: #555; line-height: 1.6;">
-        If you don’t use this link within 7 hours, it will expire. To get a new password reset link, visit: 
+        If you don’t use this link within 24 hours, it will expire. To get a new password reset link, visit: 
         <a href="${
           process.env.APP_URL
         }/forgotPassword" style="color: #163683; text-decoration: none;">${
