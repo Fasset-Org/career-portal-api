@@ -282,37 +282,53 @@ const AuthController = {
       );
 
       const html = `
-  <div style="width: 100%; max-width: 600px; margin: auto; border: 1px solid lightgray; border-radius: 0px; padding: 20px; font-family: Arial, sans-serif;">
-    <div style="text-align: center;">
-      <h2 style="color: #163683;">Password Reset Request</h2>
+  <div style="width: 100%; max-width: 600px; margin: auto; border: 1px solid #e0e0e0; border-radius: 10px; padding: 20px; font-family: Arial, sans-serif; background-color: #f9f9f9;">
+    <div style="text-align: center; margin-bottom: 30px;">
+      <h2 style="color: #163683; font-size: 24px; font-weight: bold; margin: 0;">Password Reset Request</h2>
       <img src="${
         process.env.API_URL
-      }/uploads/blueLogo-transparentBg.png" alt="Logo" height="150px" width="150px" />
+      }/uploads/blueLogo-transparentBg.png" alt="Logo" height="120px" width="150px" style="margin-top: 20px;" />
     </div>
-    <p style="font-size: 16px; color: #333;">Dear ${user.firstName} ${
-        user.lastName
-      },</p>
-    <p style="font-size: 16px; color: #333;">
-      You have submitted a password change request. Please click the button below to reset your password.
-    </p>
-    <div style="text-align: start; margin: 20px 0;">
+    
+    <div style="margin-bottom: 20px;">
+      <p style="font-size: 16px; color: #333; line-height: 1.6; margin-bottom: 10px;">
+        Dear ${user.firstName} ${user.lastName},
+      </p>
+      <p style="font-size: 16px; color: #333; line-height: 1.6; margin-bottom: 20px;">
+        You have submitted a password change request. Please click the button below to reset your password.
+      </p>
+    </div>
+
+    <div style="text-align: center; margin-bottom: 20px;">
       <a href="${process.env.APP_URL}/resetPassword/${resetPasswordToken}" 
-        style="background-color: #163683; color: white; padding: 12px 24px; font-size: 16px; font-weight: bold; text-align: center; text-decoration: none; display: inline-block; border-radius: 0px;">
+        style="background-color: #163683; color: white; padding: 12px 24px; font-size: 16px; font-weight: bold; text-align: center; text-decoration: none; display: inline-block; border-radius: 5px; transition: background-color 0.3s;">
         RESET PASSWORD
       </a>
     </div>
-    <div>
-      <p>If you don’t use this link within 7 hours, it will expire. To get a new password reset link, visit: ${
+
+    <div style="margin-bottom: 20px;">
+      <p style="font-size: 14px; color: #555; line-height: 1.6;">
+        If you don’t use this link within 7 hours, it will expire. To get a new password reset link, visit: 
+        <a href="${
+          process.env.APP_URL
+        }/forgotPassword" style="color: #163683; text-decoration: none;">${
         process.env.APP_URL
-      }/forgotPassword
+      }/forgotPassword</a>
       </p>
-      <p>Thanks,<br />
-      The GitHub Team</p>
+      <p style="font-size: 14px; color: #555; line-height: 1.6; margin-top: 20px;">
+        Thanks,<br />
+        The FASSET Team
+      </p>
     </div>
-    <p style="font-size: 14px; color: #777;">
-      If you did not request this, please ignore this email.
-    </p>
-    <hr style="border: none; border-top: 1px solid lightgray; margin: 20px 0;" />
+
+    <div style="margin-top: 40px;">
+      <p style="font-size: 14px; color: #777; text-align: center;">
+        If you did not request this, please ignore this email.
+      </p>
+    </div>
+
+    <hr style="border: none; border-top: 1px solid #e0e0e0; margin: 20px 0;" />
+    
     <p style="font-size: 12px; color: #999; text-align: center;">
       © ${new Date().getFullYear()} FASSET. All rights reserved.
     </p>
