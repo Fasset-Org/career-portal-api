@@ -287,7 +287,7 @@ const AuthController = {
       <h2 style="color: #163683; font-size: 24px; font-weight: bold; margin: 0;">Password Reset Request</h2>
       <img src="${
         process.env.API_URL
-      }/uploads/blueLogo-transparentBg.png" alt="Logo" height="120px" width="120px" style="margin-top: 20px;" />
+      }/uploads/blueLogo-transparentBg.png" alt="Logo" height="150px" width="150px" style="margin-top: 20px;" />
     </div>
     
     <div style="margin-bottom: 20px;">
