@@ -282,26 +282,26 @@ const AuthController = {
       );
 
       const html = `
-  <div style="width: 100%; max-width: 600px; margin: auto; border: 1px solid #e0e0e0; border-radius: 10px; padding: 20px; font-family: Arial, sans-serif; background-color: #f9f9f9;">
+  <div style="width: 100%; max-width: 600px; margin: auto; border: 1px solid #e0e0e0; border-radius: 0px; padding: 20px; font-family: Arial, sans-serif;">
     <div style="text-align: center; margin-bottom: 30px;">
       <h2 style="color: #163683; font-size: 24px; font-weight: bold; margin: 0;">Password Reset Request</h2>
       <img src="${
         process.env.API_URL
-      }/uploads/blueLogo-transparentBg.png" alt="Logo" height="120px" width="150px" style="margin-top: 20px;" />
+      }/uploads/blueLogo-transparentBg.png" alt="Logo" height="120px" width="120px" style="margin-top: 20px;" />
     </div>
     
     <div style="margin-bottom: 20px;">
       <p style="font-size: 16px; color: #333; line-height: 1.6; margin-bottom: 10px;">
-        Dear ${user.firstName} ${user.lastName},
+        Dear <b>${user.firstName} ${user.lastName}</b>,
       </p>
-      <p style="font-size: 16px; color: #333; line-height: 1.6; margin-bottom: 20px;">
+      <p style="font-size: 14px; color: #333; line-height: 1.6; margin-bottom: 20px;">
         You have submitted a password change request. Please click the button below to reset your password.
       </p>
     </div>
 
     <div style="text-align: center; margin-bottom: 20px;">
       <a href="${process.env.APP_URL}/resetPassword/${resetPasswordToken}" 
-        style="background-color: #163683; color: white; padding: 12px 24px; font-size: 16px; font-weight: bold; text-align: center; text-decoration: none; display: inline-block; border-radius: 5px; transition: background-color 0.3s;">
+        style="background-color: #163683; color: white; padding: 12px 24px; font-size: 16px; font-weight: bold; text-align: center; text-decoration: none; display: inline-block; border-radius: 0px; transition: background-color 0.3s;">
         RESET PASSWORD
       </a>
     </div>
